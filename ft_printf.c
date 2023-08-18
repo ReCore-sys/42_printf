@@ -6,7 +6,7 @@
 /*   By: kshore <kshore@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 10:26:08 by kshore            #+#    #+#             */
-/*   Updated: 2023/08/19 01:02:22 by kshore           ###   ########.fr       */
+/*   Updated: 2023/08/19 01:04:59 by kshore           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	print_segment(void *arg, char *segment)
 	ft_putstr_fd(ft_strjoin(str, segment), 1);
 	free(str);
 }
-
 
 int	ft_printf(const char *format, ...)
 {
