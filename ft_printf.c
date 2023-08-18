@@ -6,7 +6,7 @@
 /*   By: kshore <kshore@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 10:26:08 by kshore            #+#    #+#             */
-/*   Updated: 2023/08/19 00:48:44 by kshore           ###   ########.fr       */
+/*   Updated: 2023/08/19 01:02:22 by kshore           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,7 @@ int	ft_printf(const char *format, ...)
 	t_list	*arg_list;
 	int		i;
 	t_list	*split_string;
-	bool	first_is_param;
 
-	first_is_param = (format[0] == '%');
 	va_start(args, format);
 	if (count_char((char *)format, '%') == 0)
 	{
@@ -62,16 +60,15 @@ int	ft_printf(const char *format, ...)
 		return (0);
 	}
 	split_string = array_to_list((void **)ft_split(format, '%'));
-	arg_list = args_to_list(&args, count_char((char *)format, '%'), first_is_param);
+	arg_list = args_to_list(&args, \
+	count_char((char *)format, '%'), (format[0] == '%'));
 	i = 0;
-	if (!first_is_param)
-	{
-		ft_putstr_fd(split_string->content, 1);
-		i++;
-	}
+	if (!(format[0] == '%'))
+		ft_putstr_fd(split_string->content, ++i);
 	while (ft_get(*arg_list, i) && ft_get(*split_string, i))
 	{
-		print_segment(ft_get(*arg_list, i)->content, ft_get(*split_string, i)->content);
+		print_segment(ft_get(*arg_list, i)->content, \
+		ft_get(*split_string, i)->content);
 		i++;
 	}
 	va_end(args);

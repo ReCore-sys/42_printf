@@ -1,7 +1,7 @@
 # Name of the static library to be built
-Library = ft_printf
+Library = libftprintf
 
-SRC = "~/ft_printf"
+SRC = "~/libftprintf"
 
 # List of source files (C functions) without the ".c" extension
 # Find all files ending with ".c" in the current directory
@@ -14,7 +14,7 @@ targets := $(files:%.c=%)
 Compiler = cc
 
 # Compiler flags for the compilation process
-CmpFlags = -g -Wall -Wextra -Werror -L./libft -I./libft -lft
+CmpFlags = -g -Wall -Wextra -Werror -L./libft -I./libft -lft -I./
 
 # Output name for the static library
 OUTN = $(Library).a
@@ -26,7 +26,7 @@ CFILES = $(targets:%=%.c)
 OFILES = $(targets:%=%.o)
 
 # Target name for the final library file
-NAME = ft_printf.a
+NAME = libftprintf.a
 
 # Rule to build the library
 $(NAME):
