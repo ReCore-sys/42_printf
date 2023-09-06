@@ -6,7 +6,7 @@
 /*   By: kshore <kshore@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 10:26:08 by kshore            #+#    #+#             */
-/*   Updated: 2023/09/07 03:29:28 by kshore           ###   ########.fr       */
+/*   Updated: 2023/09/07 04:30:00 by kshore           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,6 @@ int	putstr_returnsize(char *str)
 	if (str[0] == '%')
 		return (1);
 	return (ft_strlen(str) - 1);
-}
-
-// A wrapper around putstr so we can return 0 and save lines in ft_printf
-int	putstrreturn(char *str)
-{
-	ft_putstr_fd(str, 1);
-	return (0);
 }
 
 int	ft_printf(const char *format, ...)
@@ -73,7 +66,7 @@ int	ft_printf(const char *format, ...)
 
 int	main(void)
 {
-	ft_printf("%c", '0');
+	printf("\nSize: %d", ft_printf("%%c", '0'));
 	return (0);
 }
 

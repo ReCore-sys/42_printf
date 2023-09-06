@@ -6,7 +6,7 @@
 /*   By: kshore <kshore@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 23:21:49 by kshore            #+#    #+#             */
-/*   Updated: 2023/09/07 03:11:48 by kshore           ###   ########.fr       */
+/*   Updated: 2023/09/07 04:17:53 by kshore           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char	*arg_to_str(va_list arg, char type)
 	else if (type == 'd' || type == 'i')
 		str = ft_itoa(va_arg(arg, int));
 	else if (type == 'c')
-		str = ft_strdup((char []){va_arg(arg, int), '\0'});
+		str = ft_strdup((char [2]){va_arg(arg, int), '\0'});
 	else if (type == 'p')
 		str = get_mem_addr(va_arg(arg, void *));
 	else if (type == 'u')
