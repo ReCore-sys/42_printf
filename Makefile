@@ -29,26 +29,23 @@ OFILES = $(targets:%=%.o)
 NAME = libftprintf.a
 
 # Rule to build the library
-# This is the stupidest shit I have ever coded and that's saying a lot
-# It extracts libft into a bunch of .o files, compiles printf into a bunch of .o files then recompiles all of them into a .a file
-# This sucks a truly ungodly amount of ass, please kill me
 $(NAME): $(OFILES)
-	@make -C libft
-	ar -x libft/libft.a
-	$(Compiler) $(CmpFlags) -c $(CFILES)
-	ar -crs $(NAME) $(OFILES) $(wildcard ./*.o)
-	rm -f "__.SYMDEF SORTED"
+	@make -C libft re
+	@mv ./libft/libft.a $(NAME)
+	ar rcs $(NAME) $(OFILES)
 
 
 # Default target is "all," which builds the library
 all: $(NAME)
 
 exe:
-	@make -C libft
-	$(Compiler) $(CmpFlags) $(CFILES)
+	@make -C libft re
+	cp ./libft/libft.a ./libft.a
+	$(Compiler) $(CmpFlags) -I./ -L./ -lft  -Ddo_exe $(CFILES)
 
 # Rule to clean up object files and the library
 clean:
+	rm -rf a.out a.out.dSYM
 	rm -f $(NAME)
 	rm -f $(OFILES)
 	rm -f $(wildcard ./*.o)

@@ -6,12 +6,14 @@
 /*   By: kshore <kshore@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 10:43:23 by kshore            #+#    #+#             */
-/*   Updated: 2023/08/19 00:37:45 by kshore           ###   ########.fr       */
+/*   Updated: 2023/09/07 02:26:48 by kshore           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
+#include <stdarg.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 void	**list_to_array(t_list *list)
 {
@@ -76,4 +78,11 @@ void	pretty_print_list(t_list *list)
 		list = list->next;
 		i++;
 	}
+}
+
+void	multifree(void *obj1, void *obj2, void *obj3)
+{
+	free(obj1);
+	free(obj2);
+	free(obj3);
 }
