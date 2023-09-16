@@ -6,14 +6,15 @@
 /*   By: kshore <kshore@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 23:21:49 by kshore            #+#    #+#             */
-/*   Updated: 2023/09/07 04:17:53 by kshore           ###   ########.fr       */
+/*   Updated: 2023/09/16 14:05:08 by kshore           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdarg.h>
 #include <stdint.h>
 
-char	*ft_itoa_base(int value, int base)
+char	*ft_itoa_base(long value, int base)
 {
 	char	*str;
 	char	*hex;
@@ -48,7 +49,7 @@ char	*get_mem_addr(void *val)
 	char	*tmp;
 
 	str = ft_strdup("0x");
-	hex = ft_itoa_base((int)(intptr_t)val, 16);
+	hex = ft_itoa_base((long)(intptr_t) val, 16);
 	tmp = str;
 	str = ft_strjoin(str, hex);
 	free(tmp);
@@ -73,7 +74,12 @@ char	*arg_to_str(va_list arg, char type)
 {
 	char	*str;
 
-	if (type == 's')
+
+	if (type == '%')
+		str = ft_strdup("%");
+	else if (va_arg(arg, void *) == (void *) NULL)
+		str = ft_strdup("(null)");
+	else if (type == 's')
 		str = ft_strdup(va_arg(arg, char *));
 	else if (type == 'd' || type == 'i')
 		str = ft_itoa(va_arg(arg, int));

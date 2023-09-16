@@ -6,7 +6,7 @@
 /*   By: kshore <kshore@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 10:26:08 by kshore            #+#    #+#             */
-/*   Updated: 2023/09/07 04:30:00 by kshore           ###   ########.fr       */
+/*   Updated: 2023/09/16 13:33:32 by kshore           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	putstr_returnsize(char *str)
 	ft_putstr_fd(str, 1);
 	if (str[0] == '%')
 		return (1);
-	return (ft_strlen(str) - 1);
+	return (ft_strlen(str));
 }
 
 int	ft_printf(const char *format, ...)
@@ -47,17 +47,13 @@ int	ft_printf(const char *format, ...)
 	while (format[i])
 	{
 		if (format[i] == '%')
-		{
-			if (format[i++ + 1] == '%')
-			{
-				size += putstr_returnsize("%");
-				i++;
-			}
-			else
-				size += print_segment(args, format[i++]);
-		}
+			size += print_segment(args, format[++i]);
 		else
-			size += putstr_returnsize((char *)&format[i++]);
+		{
+			ft_putchar_fd(format[i], 1);
+			size++;
+		}
+		i++;
 	}
 	return (size);
 }
@@ -66,7 +62,10 @@ int	ft_printf(const char *format, ...)
 
 int	main(void)
 {
-	printf("\nSize: %d", ft_printf("%%c", '0'));
+	printf("Intended:\n");
+	printf("%p", "");
+	printf("\nActual:\n");
+	ft_printf("%p", "");
 	return (0);
 }
 

@@ -40,19 +40,19 @@ all: $(NAME)
 
 exe:
 	@make -C libft re
-	cp ./libft/libft.a ./libft.a
-	$(Compiler) $(CmpFlags) -I./ -L./ -lft  -Ddo_exe $(CFILES)
+	@cp ./libft/libft.a ./libft.a
+	@$(Compiler) $(CmpFlags) -I./ -L./ -lft  -Ddo_exe $(CFILES)
 
 # Rule to clean up object files and the library
 clean:
-	rm -rf a.out a.out.dSYM
-	rm -f $(NAME)
-	rm -f $(OFILES)
-	rm -f $(wildcard ./*.o)
+	@rm -rf a.out a.out.dSYM
+	@rm -f $(NAME)
+	@rm -f $(OFILES)
+	@rm -f $(wildcard ./*.o)
 
 # Rule to remove all generated files, including the library
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 # Rule to force a rebuild of the library
 re: fclean all

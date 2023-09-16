@@ -6,7 +6,7 @@
 /*   By: kshore <kshore@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 10:43:23 by kshore            #+#    #+#             */
-/*   Updated: 2023/09/07 02:26:48 by kshore           ###   ########.fr       */
+/*   Updated: 2023/09/16 12:14:24 by kshore           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,40 +14,6 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
-
-void	**list_to_array(t_list *list)
-{
-	void	**array;
-	int		i;
-
-	array = malloc(sizeof(void *) * (ft_lstsize(list) + 1));
-	if (!array)
-		return (NULL);
-	i = 0;
-	while (list)
-	{
-		array[i] = list->content;
-		list = list->next;
-		i++;
-	}
-	array[i] = NULL;
-	return (array);
-}
-
-t_list	*array_to_list(void **array)
-{
-	t_list	*list;
-	int		i;
-
-	list = NULL;
-	i = 0;
-	while (array[i])
-	{
-		ft_lstadd_back(&list, ft_lstnew(array[i]));
-		i++;
-	}
-	return (list);
-}
 
 int	count_char(char *str, char c)
 {

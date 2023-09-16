@@ -6,7 +6,7 @@
 /*   By: kshore <kshore@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 00:36:28 by kshore            #+#    #+#             */
-/*   Updated: 2023/09/07 03:24:05 by kshore           ###   ########.fr       */
+/*   Updated: 2023/09/16 13:20:29 by kshore           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stdarg.h>
 #include <stdbool.h>
 
-char	*ft_itoa_base(int value, int base);
+char	*ft_itoa_base(long value, int base);
 char	*get_mem_addr(void *val);
 char	*full_upper(char *str);
 char	*arg_to_str(va_list arg, char type);
