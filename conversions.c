@@ -6,7 +6,7 @@
 /*   By: kshore <kshore@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 23:21:49 by kshore            #+#    #+#             */
-/*   Updated: 2023/09/16 14:05:08 by kshore           ###   ########.fr       */
+/*   Updated: 2023/09/26 03:51:10 by kshore           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,37 @@ char	*ft_itoa_base(long value, int base)
 	return (strrev(str));
 }
 
+char	*itoa_hex_unsigned(unsigned long val)
+{
+	char	*str;
+	char	*hex;
+	char	*tmp;
+
+	if (!val)
+		return (ft_strdup("0"));
+	str = ft_strdup("");
+	while (val)
+	{
+		hex = ft_strdup((char [2]){"0123456789abcdef"[val % 16], '\0'});
+		tmp = str;
+		str = ft_strjoin(hex, str);
+		free(tmp);
+		free(hex);
+		val /= 16;
+	}
+	return (str);
+}
+
 char	*get_mem_addr(void *val)
 {
 	char	*str;
 	char	*hex;
 	char	*tmp;
 
+	if (!val)
+		return (ft_strdup("0x0"));
 	str = ft_strdup("0x");
-	hex = ft_itoa_base((long)(intptr_t) val, 16);
+	hex = itoa_hex_unsigned((unsigned long)val);
 	tmp = str;
 	str = ft_strjoin(str, hex);
 	free(tmp);
@@ -57,34 +80,31 @@ char	*get_mem_addr(void *val)
 	return (str);
 }
 
-char	*full_upper(char *str)
+char	*dupe_or_null(char *str)
 {
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		str[i] = ft_toupper(str[i]);
-		i++;
-	}
-	return (str);
+	if (!str)
+		return (ft_strdup("(null)"));
+	return (ft_strdup(str));
 }
 
-char	*arg_to_str(va_list arg, char type)
+char	*arg_to_str(va_list arg, char type, int *counter)
 {
 	char	*str;
 
-
+	str = "";
 	if (type == '%')
 		str = ft_strdup("%");
-	else if (va_arg(arg, void *) == (void *) NULL)
-		str = ft_strdup("(null)");
 	else if (type == 's')
-		str = ft_strdup(va_arg(arg, char *));
+		str = dupe_or_null(va_arg(arg, char *));
 	else if (type == 'd' || type == 'i')
-		str = ft_itoa(va_arg(arg, int));
+		str = ft_itoa(va_arg(arg, unsigned int));
 	else if (type == 'c')
-		str = ft_strdup((char [2]){va_arg(arg, int), '\0'});
+	{
+		str = ft_strdup((char [2]){va_arg(arg, unsigned int), '\0'});
+		if (!str[0])
+			*counter += 1;
+		comment("This is a nasty hack but im not doing a full rewrite at 4am");
+	}
 	else if (type == 'p')
 		str = get_mem_addr(va_arg(arg, void *));
 	else if (type == 'u')
@@ -93,7 +113,5 @@ char	*arg_to_str(va_list arg, char type)
 		str = ft_itoa_base(va_arg(arg, unsigned int), 16);
 	else if (type == 'X')
 		str = full_upper(ft_itoa_base(va_arg(arg, unsigned int), 16));
-	else
-		str = ft_strdup("");
 	return (str);
 }

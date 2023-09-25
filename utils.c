@@ -6,7 +6,7 @@
 /*   By: kshore <kshore@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 10:43:23 by kshore            #+#    #+#             */
-/*   Updated: 2023/09/16 12:14:24 by kshore           ###   ########.fr       */
+/*   Updated: 2023/09/26 03:26:09 by kshore           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,15 @@ int	count_char(char *str, char c)
 	return (i);
 }
 
-void	pretty_print_list(t_list *list)
+char	*full_upper(char *str)
 {
 	int	i;
 
 	i = 0;
-	while (list)
+	while (str[i])
 	{
-		printf("%d: %s\n", i, (char *)list->content);
-		list = list->next;
+		str[i] = ft_toupper(str[i]);
 		i++;
 	}
-}
-
-void	multifree(void *obj1, void *obj2, void *obj3)
-{
-	free(obj1);
-	free(obj2);
-	free(obj3);
+	return (str);
 }

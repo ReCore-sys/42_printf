@@ -6,7 +6,7 @@
 /*   By: kshore <kshore@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 10:26:08 by kshore            #+#    #+#             */
-/*   Updated: 2023/09/16 13:33:32 by kshore           ###   ########.fr       */
+/*   Updated: 2023/09/26 03:53:44 by kshore           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int	print_segment(va_list arg, char seg_type)
+int	print_segment(va_list arg, char seg_type, int *counter)
 {
 	char	*str;
 	int		size;
 
-	str = arg_to_str(arg, seg_type);
+	str = arg_to_str(arg, seg_type, counter);
 	ft_putstr_fd(str, 1);
 	size = ft_strlen(str);
 	free(str);
@@ -47,7 +47,7 @@ int	ft_printf(const char *format, ...)
 	while (format[i])
 	{
 		if (format[i] == '%')
-			size += print_segment(args, format[++i]);
+			size += print_segment(args, format[++i], &size);
 		else
 		{
 			ft_putchar_fd(format[i], 1);
@@ -62,10 +62,14 @@ int	ft_printf(const char *format, ...)
 
 int	main(void)
 {
+	int	len;
+
 	printf("Intended:\n");
-	printf("%p", "");
+	len = printf(" %c %c %c ", '0', 0, '1');
+	printf(" | Len: %d\n", len);
 	printf("\nActual:\n");
-	ft_printf("%p", "");
+	len = ft_printf(" %c %c %c ", '0', 0, '1');
+	printf(" | Len: %d\n", len);
 	return (0);
 }
 
